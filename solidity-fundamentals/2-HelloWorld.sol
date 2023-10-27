@@ -3,7 +3,7 @@
 pragma solidity ^0.8.20;
 
 contract HelloWorld {
-    // stat variables automatically get a getter functions for reads
+    // state variables automatically get a getter functions for reads
     string public text = "Hello World";
 
     function getText() public view returns (string memory) {

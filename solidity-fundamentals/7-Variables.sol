@@ -4,7 +4,7 @@
 pragma solidity ^0.8.20;
 
 contract Variables {
-    // state variabes ar e contract scope
+    // state variabes are contract scope
     string public myStateVariable = "State Variable";
 
     // local variables are decalred in a fucntion - they are function scoped

@@ -4,13 +4,13 @@
 pragma solidity ^0.8.20;
 
 contract Functions {
-    // corresponding getter function geenrated automatically for public
+    // corresponding getter function generated automatically for public
     // state variables
     string public stateString = "Hello World";
 
     // public view function - read data from blockchain without changing its state
     // read only funciton basically.
-    // no reads and modications can be performed on concerning blockkchain
+    // no writes and modications can be performed on concerning blockkchain
     function viewExample() public view returns (string memory) {
         return stateString;
     }
