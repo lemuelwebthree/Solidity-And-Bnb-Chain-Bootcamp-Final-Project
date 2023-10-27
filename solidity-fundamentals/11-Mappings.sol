@@ -9,6 +9,11 @@ contract Mappings {
     // note that the types for mapping keys can only be built in types - however
     // related values of key-value pairs can be custom data types like a Struct
     // of perosn details (name and age) to store in a mapping called friends list.
+
+    // NOTES ON DOUBLE MAPPINGS OR NESTED MAPPINGS OR HASHMAPS
+    // Nested mapping are not really gas efficient but they ar efor complex
+    // dtata types however they are not iterable
+
     // CREATE
     mapping(address => string) public names;
     // READ
