@@ -16,7 +16,7 @@ contract Functions {
     }
 
     // pure functions are similar to view fucntions in a way
-    // but they are more restricted. NDOe snot interact with blockchain directly
+    // but they are more restricted. Does not interact with blockchain directly
     // and it allows us to perfrom arbitary calculcations as an example
     function add(uint a, uint b) public pure returns (uint) {
         return a + b;
