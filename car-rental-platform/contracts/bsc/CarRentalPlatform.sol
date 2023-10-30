@@ -8,8 +8,10 @@ pragma solidity ^0.8.4;
 // 1. Logic outline: contains an outline of data types required, the functions needed
 
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-contract CarRentalPlatform {
+
+contract CarRentalPlatform is ReentrancyGuard {
   //1. DATA SECTION
 
   //Counter
@@ -194,9 +196,33 @@ contract CarRentalPlatform {
 
     emit PaymentMade(msg.sender, debt);
   }
-  //withdrawalBalance #existingUser
+  //withdrawalBalance #existingUser with nonReentrant
+  function withdrawBalance(uint amount) external nonReentrant {
+    require(isUser(msg.sender), "User does not exist");
+    uint balance = users[msg.sender].balance;
+    require(balance >= amount, "Insufficient balance to withdraw");
+
+    unchecked {
+      users[msg.sender].balance -= amount;
+    }
+
+    (bool success,) = msg.sender.call{value: amount}("");
+    require(success, "Transfer failed");
+
+    emit BalanceWithdrawn(msg.sender, amount);
+  }
 
   //withdrawOwnerBalance #onlyOwner
+  function withdrawOwnerBalance(uint amount) external onlyOwner {
+    require(totalPayments >= amount, "Insufficient contract balance to withdraw");
+
+    (bool success,) = owner.call{value: amount}("");
+    require(success, "Transfer failed");
+
+    unchecked {
+      totalPayments -= amount;
+    }
+  }
 
   //3.2. Query Functions
 
