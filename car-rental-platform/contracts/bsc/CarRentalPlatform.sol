@@ -7,6 +7,8 @@ pragma solidity ^0.8.4;
 // to reduce errors.
 // 1. Logic outline: contains an outline of data types required, the functions needed
 
+import "../../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+
 contract CarRentalPlatform {
   //1. DATA SECTION
 
