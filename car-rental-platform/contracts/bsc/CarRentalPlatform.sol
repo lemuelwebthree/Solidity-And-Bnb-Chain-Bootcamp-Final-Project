@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity 0.8.19;
 
 // Tip: SMartc ontract development workflow:
 // 1. COnstruct layout or logic for he contract ->
@@ -214,7 +214,7 @@ contract CarRentalPlatform is ReentrancyGuard {
   }
 
   //withdrawOwnerBalance #onlyOwner
-  function withdrawOwnerBalane(uint amount) external onlyOwner{
+  function withdrawOwnerBalance(uint amount) external onlyOwner{
     require(totalPayments >= amount, "Insufficient Contract Balance to withdraw");
 
     (bool success, ) = owner.call{value: amount}("");  
