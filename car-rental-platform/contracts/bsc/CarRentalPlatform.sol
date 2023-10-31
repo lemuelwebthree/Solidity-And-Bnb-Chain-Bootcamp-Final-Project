@@ -7,8 +7,8 @@ pragma solidity ^0.8.4;
 // to reduce errors.
 // 1. Logic outline: contains an outline of data types required, the functions needed
 
-import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "../../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+import "../../node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 
 contract CarRentalPlatform is ReentrancyGuard {
@@ -16,7 +16,7 @@ contract CarRentalPlatform is ReentrancyGuard {
 
   //Counter
   using Counters for Counters.Counter;
-  Counters.Counter private_counter;
+  Counters.Counter private _counter;
 
   //Owner
   address private owner;
@@ -94,20 +94,20 @@ contract CarRentalPlatform is ReentrancyGuard {
 
   //addUser #nonExisting
   // calldata helps us to perfrom gas-efficient reads
-  function addUser(string calldata name,string calldata lastname) external {
+  function addUser(string calldata name, string calldata lastname) external {
     require(!isUser(msg.sender), "User already exists");
     users[msg.sender] = User(msg.sender, name, lastname, 0, 0, 0, 0);
 
-    emit UserAdded(msg.sender, user[msg.sender].name, users[msg.sender].lastname);
+    emit UserAdded(msg.sender, users[msg.sender].name, users[msg.sender].lastname);
   }
 
   //addCar #onlyOwner #nonExistingCar
-  function addCar(string calldata name, string calldata url, uint rent, uint sale) external onlyOwner {
+  function addCar(string calldata name, string calldata url, uint rent, uint sale) external onlyOwner{
     _counter.increment();
     uint counter = _counter.current();
     cars[counter] = Car(counter, name, url, Status.Available, rent, sale);
-
-    emit CarAdded(counter, cars[counter].name, cars[counter].imgUrl, cars[counter].rentFee, cars[counter].saleFee, cars[counter].saleFee);
+    
+    emit CarAdded(counter, cars[counter].name, cars[counter].imgUrl, cars[counter].rentFee, cars[counter].saleFee);
   }
 
   //editCarStatus #onlyOwner #exisingCar
@@ -133,10 +133,10 @@ contract CarRentalPlatform is ReentrancyGuard {
 
 
   //editCarStatus #onlyOwner #exisingCar
-  function editCarStatus(uint id, Status status) external onlyOwner {
+  function editCarStatus(uint id, Status status) external onlyOwner{
     require(cars[id].id !=0, "Car with given id does not exist");
     cars[id].status = status;
-
+    
     emit CarStatusEdited(id, status);
   }
 
@@ -155,16 +155,16 @@ contract CarRentalPlatform is ReentrancyGuard {
   }
 
   //checkIn #exisintgUser #userHasRentedACar
-  function checkIn() external {
-    require(isUser(msg.sender), "User does not exist!");
+  function checkIn() external{
+    require(isUser(msg.sender), "User does not exist");
     uint rentedCarId = users[msg.sender].rentedCarId;
-    require(rentedCarId != 0, "User has not rented a car");
+    require(rentedCarId != 0,"User has not rented a car");
 
     uint usedSeconds = block.timestamp - users[msg.sender].start;
     uint rentFee = cars[rentedCarId].rentFee;
-    users[msg.sender].debt += calculateDebt(usedSeconds, rentFee);
+    users[msg.sender].debt += calculateDebt(usedSeconds,rentFee);
 
-    users[msg.sender].rentedCrId = 0;
+    users[msg.sender].rentedCarId = 0;
     users[msg.sender].start = 0;
     cars[rentedCarId].status = Status.Available;
 
@@ -249,20 +249,19 @@ contract CarRentalPlatform is ReentrancyGuard {
   }
 
   //getCarByStatus
-  function getCarByStatus(Status _status) external view returns(Car[] memory) {
-    uint count = 0;
+  function getCarsByStatus(Status _status) external view returns(Car[] memory){
+    uint count =0;
     uint length = _counter.current();
-    for(uint i = 1; i <= length; i++) {
-      if(cars[i].status == _status) {
-        carswithStatus[count] = cars[i];
-        count ++;
+    for(uint i=1; i<=length; i++){
+      if(cars[i].status == _status){
+        count++;
       }
     }
-    Car[] memory carswithStatus = new Car[](count);
-    count = 0;
-    for(uint i = 1; i <= length; i++) {
-      if(cars[i].status == _status) {
-        carswithStatus[count] = cars[i];
+    Car[] memory carsWithStatus = new Car[](count);
+    count =0;
+    for(uint i = 1; i<=length; i++){
+      if(cars[i].status == _status){
+        carsWithStatus[count] = cars[i];
         count++;
       }
     }
@@ -279,11 +278,11 @@ contract CarRentalPlatform is ReentrancyGuard {
 
   //getCurrentCount
   function getCurrentCount() external view returns(uint) {
-    return count.current();
+    return _counter.current();
   }
 
   //getContractBalance #onlyOwner
-  function getContractBalance() external vview onlyOwner returns(uint) {
+  function getContractBalance() external view onlyOwner returns(uint) {
     return address(this).balance;
   }
 
