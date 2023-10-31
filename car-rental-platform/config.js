@@ -1,0 +1,1 @@
+export const carRentalPlatformAddress = 0xaa889f148E0ac11135aA3d8ABDbFDac3BCBd63B9
