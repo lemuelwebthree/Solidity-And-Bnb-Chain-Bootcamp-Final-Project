@@ -227,22 +227,69 @@ contract CarRentalPlatform is ReentrancyGuard {
   //3.2. Query Functions
 
   //getOwner
+  function getOwner() private view returns(address) {
+    return owner;
+  }
 
   //isUser
+  function isUser(address walletAddress) private view returns(bool) {
+    return users[walletAddress].walletAddress != address(0);
+  }
 
   //getUser #existingUser
+  function getUser(address walletAddress) external view returns(User memory) {
+    require(isUser(walletAddress), "User does not exist");
+    return users[walletAddress];
+  }
 
   //getCar #existingCar
+  function getCar(uint id) external view returns(Car memory) {
+    require(cars[id].id != 0, "Car does not exist");
+    return cars[id];
+  }
 
   //getCarByStatus
+  function getCarByStatus(Status _status) external view returns(Car[] memory) {
+    uint count = 0;
+    uint length = _counter.current();
+    for(uint i = 1; i <= length; i++) {
+      if(cars[i].status == _status) {
+        carswithStatus[count] = cars[i];
+        count ++;
+      }
+    }
+    Car[] memory carswithStatus = new Car[](count);
+    count = 0;
+    for(uint i = 1; i <= length; i++) {
+      if(cars[i].status == _status) {
+        carswithStatus[count] = cars[i];
+        count++;
+      }
+    }
+
+    return carsWithStatus;
+  }
 
   //calculateDebt
+  function calculateDebt(uint usedSeconds, uint rentFee) private pure returns(uint) {
+    // convert to seconds
+    uint usedMinutes = usedSeconds / 60;
+    return usedMinutes * rentFee;
+  }
 
   //getCurrentCount
+  function getCurrentCount() external view returns(uint) {
+    return count.current();
+  }
 
   //getContractBalance #onlyOwner
+  function getContractBalance() external vview onlyOwner returns(uint) {
+    return address(this).balance;
+  }
 
   //getTotalPayment #onlyOwner
-
+  function getTotalPayment() external view onlyOwner returns(uint) {
+    return totalPayments;
+  }
 
 }
