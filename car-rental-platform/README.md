@@ -81,6 +81,8 @@ If you are compiling contracts specifically for the BNB Smart Chain network, use
 
 ```
 npm run compile:bsc
+or
+yarn run compile:bsc
 ```
 
 If you would like to recompile previously compiled contracts, you can manually run this command with
@@ -117,18 +119,24 @@ To compile:
 
 ```
 npm run compile:bsc
+or
+yarn run compile:bsc
 ```
 
 To migrate:
 
 ```
 npm run migrate:bsc --network=(bscTestnet | bscMainnet)
+or
+yarn run migrate:bsc --network=(bscTestnet | bscMainnet)
 ```
 
 To test:
 
 ```
 npm run test:bsc --network=(bscTestnet | bscMainnet)
+or
+yarn run test:bsc --network=(bscTestnet | bscMainnet)
 ```
 
 ### Testing
