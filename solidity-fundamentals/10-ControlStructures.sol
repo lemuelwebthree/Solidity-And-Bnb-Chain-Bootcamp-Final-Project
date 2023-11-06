@@ -4,7 +4,7 @@
 pragma solidity ^0.8.20;
 
 contract ControlStructures {
-    // pure function ss i si not reliant on state variables to
+    // pure functions are not reliant on state variables to
     /// perform any calculations or transformations.
     function IfElse(uint x) public pure returns(uint) {
         if(x >= 77) {
