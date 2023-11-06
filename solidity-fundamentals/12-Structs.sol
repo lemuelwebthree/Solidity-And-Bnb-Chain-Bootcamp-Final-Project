@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
-// compiler version mhas to be greater than or equal (>=) to 0.8.20 and 
+// compiler version has to be greater than or equal (>=) to 0.8.20 and 
 // less than 0.9.0
 pragma solidity ^0.8.20;
 
 contract Structs {
 
-    // custom datat ytpe - a Struct for User details schema
+    // custom data type - a Struct for User details schema
     struct User {
         string name;
         uint age;
         address wallet;
     }  
 
-    // A an array for storing the custom datat type (struct) User.
-    // Arrays in oslidity are used to dat of the same data types only.
+    // An array for storing the custom data type (struct) User.
+    // Arrays in solidity are used to group and store data of the same data types only.
     // Struct array:
     User[] public user;
 
