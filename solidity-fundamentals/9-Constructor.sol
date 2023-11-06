@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-// compiler version mhas to be greater than or equal (>=) to 0.8.20 and less than 0.9.0
+// compiler version has to be greater than or equal (>=) to 0.8.20 and less than 0.9.0
 pragma solidity ^0.8.20;
 
 contract Constructor {
-    //state variables to be assigned initial values within constrcutor
-    // or cduring contract deployment.
+    //state variables to be assigned initial values within constructor
+    // or during contract deployment.
     address public owner;
     string public name;
     uint public age;
