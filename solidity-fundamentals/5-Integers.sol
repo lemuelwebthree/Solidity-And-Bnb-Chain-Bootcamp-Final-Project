@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 contract Integers {
-    // uint and int variable sdefault to 0 if uninitialised
+    // uint and int variable default to 0 if uninitialised
     // unit = unint256 & int = int256
     uint public number;
 
