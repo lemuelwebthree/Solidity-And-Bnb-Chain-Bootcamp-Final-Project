@@ -4,10 +4,10 @@
 pragma solidity ^0.8.20;
 
 contract StringsAndBytes {
-    // public state variables get getter functions geenrated automatically
+    // public state variables get getter functions generated automatically
     string public greeting = "Hello, World";
 
-    // the bytes value that is read is not in human readable format:
+    // the bytes value that is not in human readable format:
     // it can look like this for instance - 0x48656c6c6f2c20576f726c64
     bytes public helloText = "Hello, World";
 
